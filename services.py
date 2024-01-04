@@ -1,21 +1,20 @@
 import os as _os
 
 import dotenv as _dotenv
-import jwt as _jwt
+import jwt
 import sqlalchemy.orm as _orm
 import passlib.hash as _hash
 import email_validator as _email_check
 import fastapi as _fastapi
 import fastapi.security as _security
-
+from passlib.hash import bcrypt
 import database as _database
 import schemas as _schemas
 import models as _models
-import jwt
 
 _dotenv.load_dotenv()
 
-_JWT_SECRET = 'e56623570e0a0152989fd38e13da9cd6eb7031e4e039e939ba845167ee59b496'
+JWT_SECRET = 'e56623570e0a0152989fd38e13da9cd6eb7031e4e039e939ba845167ee59b496'
 
 oauth2schema = _security.OAuth2PasswordBearer("/api/token")
 
@@ -62,10 +61,10 @@ async def authenticate_user(email: str, password: str, db: _orm.Session):
 async def create_token(user: _models.User):
     user_obj = _schemas.User.from_orm(user)
 
-    user_dict = user_obj.dict()
+    user_dict = user_obj.model_dump()
     del user_dict["date_created"]
 
-    token = jwt.encode(user_dict, _JWT_SECRET, algorithm="HS256")
+    token = jwt.encode(user_dict, JWT_SECRET, algorithm="HS256")
 
     return dict(access_token=token, token_type="bearer")
 
@@ -73,7 +72,7 @@ async def create_token(user: _models.User):
 async def get_current_user(db: _orm.Session = _fastapi.Depends(get_db), token: str = _fastapi.Depends(oauth2schema)):
 
     try:
-        payload = _jwt.decode(token, _JWT_SECRET, algorithms=["HS256"])
+        payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
         user = db.query(_models.User).get(payload["id"])
     
     except:
