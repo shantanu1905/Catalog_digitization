@@ -41,6 +41,7 @@ class Product(_pydantic.BaseModel):
     ean : str
     brand: str
     category:str
+    price:str
     description: str or None = None
 
     class Config:
