@@ -1,18 +1,17 @@
 from typing import List
 from fastapi import HTTPException
 import fastapi as _fastapi
+from fastapi import FastAPI, UploadFile, HTTPException, File, Form
+import shutil
+import os
 import fastapi.security as _security
 from fastapi.responses import HTMLResponse , JSONResponse
 import sqlalchemy.orm as _orm
 import models as _models
 import services as _services
 import schemas as _schemas
-from webscrapping import scrape_upc
+from helper_services import scrape_upc , return_image_embedding , delete_previous_image ,search_by_embedding
 app = _fastapi.FastAPI()
-
-
-
-
 
 
 
@@ -197,4 +196,37 @@ async def add_product(
 
     return data
 
-# 
+
+
+
+# Define the path to the images folder
+IMAGES_FOLDER = "images"
+# Create the images folder if it doesn't exist
+os.makedirs(IMAGES_FOLDER, exist_ok=True)
+# Route to handle image upload
+
+@app.post("/product_search_by_image" , tags = ['Retail Product'])
+async def upload_image(
+    image: UploadFile = File(...) ,
+    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+    db: _orm.Session = _fastapi.Depends(_services.get_db)
+    ):
+    try:
+        # Delete previous image, if any
+        delete_previous_image()
+
+        # Save the uploaded image to the images folder
+        file_path = os.path.join(IMAGES_FOLDER, 'user_image.jpg')
+        with open(file_path, "wb") as f:
+            f.write(image.file.read())
+        img_path='images/user_image.jpg'
+        search_result = search_by_embedding(img_path)
+        return JSONResponse(content={'status':'success' , 'product_details': search_result}, status_code=200)
+
+    except Exception as e:
+        response = {
+            'status':'failed',
+            'product_details': 'Not found.'
+        }
+        return JSONResponse(content={response}, status_code=500)
+        raise HTTPException(status_code=500, detail=str(e))
