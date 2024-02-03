@@ -62,13 +62,13 @@ async def get_user_posts(user: _schemas.User = _fastapi.Depends(_services.get_cu
 
 
 
-@app.post("/search/{ean_number}" ,  tags = ['Retail Product'])
+@app.post("/search_ean" ,  tags = ['Retail Product'])
 async def search_ean(
-    upc_number: str,
+    upc_number: _schemas.EAN,
     user: _schemas.User = _fastapi.Depends(_services.get_current_user),
     db: _orm.Session = _fastapi.Depends(_services.get_db)
 ):
-    response = await scrape_upc(upc_number)
+    response = await scrape_upc(upc_number.ean)
 
     if response is None:
         return JSONResponse(content={"message": "Sorry, we were not able to find a product"}, status_code=404)
@@ -76,19 +76,19 @@ async def search_ean(
     try:
         print(response)
 
-        new_product = _models.Product(
-            name=response['product_name'],
-            image_url=response['image_source'],
-            ean=response['ean'],
-            brand=response['brand'],
-            category=response['category'],
-            price=None,
-            description=None,
-            owner_id=user.id 
-        )
-        db.add(new_product)
-        db.commit()
-        db.refresh(new_product)
+        # new_product = _models.Product(
+        #     name=response['product_name'],
+        #     image_url=response['image_source'],
+        #     ean=response['ean'],
+        #     brand=response['brand'],
+        #     category=response['category'],
+        #     price=None,
+        #     description=None,
+        #     owner_id=user.id 
+        # )
+        # db.add(new_product)
+        # db.commit()
+        # db.refresh(new_product)
 
         return JSONResponse(content=response, status_code=200)
     except HTTPException as e:
@@ -179,6 +179,13 @@ async def add_product(
     user: _schemas.User = _fastapi.Depends(_services.get_current_user),
     db: _orm.Session = _fastapi.Depends(_services.get_db)
 ):
+    # Check if a product with the same EAN already exists
+    existing_product = db.query(_models.Product).filter(_models.Product.ean == new_product.ean).first()
+
+    if existing_product:
+        # If a product with the same EAN already exists, return an error message
+        return {"status": "Error", "message": "Product with the same EAN already exists"}
+
     # Create a new product instance with the provided data
     product_data = new_product.dict()
     product_data["owner_id"] = user.id  # Set the owner_id to the current user's id
@@ -190,12 +197,11 @@ async def add_product(
     db.refresh(new_product_instance)
 
     data = {
-        "status" : "Product Details Added Successfully",
-        "product_details" : new_product_instance
+        "status": "Product Details Added Successfully",
+        "product_details": new_product_instance
     }
 
     return data
-
 
 
 

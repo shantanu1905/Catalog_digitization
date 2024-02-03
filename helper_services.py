@@ -6,6 +6,7 @@ from fastapi.responses import JSONResponse
 import psycopg2
 conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=password")
 #Imports for image processing
+
 from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input, decode_predictions
 from tensorflow.keras.preprocessing import image
 import numpy as np
@@ -18,6 +19,7 @@ from matplotlib import pyplot as plt
 
 async def scrape_upc(upc_number: str ):
     url = f"https://go-upc.com/search?q={upc_number}"
+    print(url)
 
     try:
         async with httpx.AsyncClient() as client:
@@ -36,8 +38,8 @@ async def scrape_upc(upc_number: str ):
         category = soup.find('td', class_='metadata-label', text='Category').find_next('td').text
 
         data = {
-            'product_name' : product_name,
-            'image_source' : image_source,
+            'name' : product_name,
+            'image_url' : image_source,
             'ean' : ean,
             'brand' : brand,
             'category' : category

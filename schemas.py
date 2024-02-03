@@ -47,3 +47,12 @@ class Product(_pydantic.BaseModel):
     class Config:
         orm_mode = True
         from_attributes = True  # Add this line to enable from_orm
+
+
+class EAN(_pydantic.BaseModel):
+    ean : int
+
+    class Config:
+        orm_mode = True
+        from_attributes = True  # Add this line to enable from_orm
+   
