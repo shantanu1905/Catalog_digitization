@@ -1,26 +1,41 @@
 from typing import List
-from fastapi import HTTPException
+from fastapi import HTTPException 
 import fastapi as _fastapi
 from fastapi import FastAPI, UploadFile, HTTPException, File, Form
 import shutil
 import os
 import fastapi.security as _security
-from fastapi.responses import HTMLResponse , JSONResponse
+from fastapi.responses import HTMLResponse , JSONResponse , FileResponse , Response ,StreamingResponse
 import sqlalchemy.orm as _orm
 import models as _models
 import services as _services
 import schemas as _schemas
+import pandas as pd
 from helper_services import scrape_upc , return_image_embedding , delete_previous_image ,search_by_embedding
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+
+
 app = _fastapi.FastAPI()
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_DIR = os.path.join(BASE_DIR,'images')
 
-
+templates = Jinja2Templates(directory="templates")
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    # Render the "index.html" template
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/api/users" ,  tags = ['User Auth'])
-async def create_user(user: _schemas.UserCreate, db: _orm.Session = _fastapi.Depends(_services.get_db)):
+async def create_user(
+    user: _schemas.UserCreate, 
+    db: _orm.Session = _fastapi.Depends(_services.get_db)):
     db_user = await _services.get_user_by_email(email=user.email, db=db)
+
     if db_user:
         raise _fastapi.HTTPException(
-            status_code=400,
+            status_code=200,
             detail="User with that email already exists")
 
     user = await _services.create_user(user=user, db=db)
@@ -28,9 +43,20 @@ async def create_user(user: _schemas.UserCreate, db: _orm.Session = _fastapi.Dep
     return await _services.create_token(user=user)
 
 
+
+# Endpoint to check if the API is live
+@app.get("/check_api")
+async def check_api():
+    return {"status": "Connected to API Successfully"}
+
+
+
 @app.post("/api/token" ,tags = ['User Auth'])
-async def generate_token(form_data: _security.OAuth2PasswordRequestForm = _fastapi.Depends(), db: _orm.Session = _fastapi.Depends(_services.get_db)):
-    user = await _services.authenticate_user(email=form_data.username, password=form_data.password, db=db)
+async def generate_token(
+    #form_data: _security.OAuth2PasswordRequestForm = _fastapi.Depends(), 
+    user_data: _schemas.GenerateUserToken,
+    db: _orm.Session = _fastapi.Depends(_services.get_db)):
+    user = await _services.authenticate_user(email=user_data.username, password=user_data.password, db=db)
 
     if not user:
         raise _fastapi.HTTPException(
@@ -57,9 +83,6 @@ async def create_post(
 async def get_user_posts(user: _schemas.User = _fastapi.Depends(_services.get_current_user),
                          db: _orm.Session = _fastapi.Depends(_services.get_db)):
     return await _services.get_user_posts(user=user, db=db)
-
-
-
 
 
 @app.post("/search_ean" ,  tags = ['Retail Product'])
@@ -93,9 +116,6 @@ async def search_ean(
         return JSONResponse(content=response, status_code=200)
     except HTTPException as e:
         return JSONResponse(content={"message": "Sorry, we were not able to find a product"}, status_code=404)
-
-
-
 
 # Get all products for the current user
 @app.get("/get_products" ,  tags = ['Retail Product'])
@@ -152,8 +172,6 @@ async def update_product(
 
     return data
 
-
-
 # Delete an existing product by id
 @app.delete("/products/{product_id}" ,  tags = ['Retail Product'])
 async def delete_product(
@@ -170,7 +188,6 @@ async def delete_product(
     db.commit()
 
     return {"message": "Product deleted successfully"}
-
 
 # Add a new product
 @app.post("/products_add" ,  tags = ['Retail Product'])

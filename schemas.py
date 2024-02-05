@@ -19,6 +19,11 @@ class User(_UserBase):
         orm_mode = True
         from_attributes = True  # Add this line to enable from_orm
 
+class GenerateUserToken(_pydantic.BaseModel):
+    username : str
+    password : str
+
+
 class _PostBase(_pydantic.BaseModel):
     post_text: str
 
