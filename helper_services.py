@@ -114,5 +114,3 @@ def search_by_embedding(image_url):
 
     return product_details
 
-
-

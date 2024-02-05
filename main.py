@@ -236,3 +236,5 @@ async def upload_image(
         }
         return JSONResponse(content={response}, status_code=500)
         raise HTTPException(status_code=500, detail=str(e))
+
+
