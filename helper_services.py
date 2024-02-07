@@ -21,6 +21,11 @@ from matplotlib import pyplot as plt
 from sentence_transformers import SentenceTransformer, util
 text_model = SentenceTransformer("multi-qa-MiniLM-L6-cos-v1")
 
+
+#keras ocr pipeline and impors
+import keras_ocr
+keras_pipeline = keras_ocr.pipeline.Pipeline()
+
 async def scrape_upc(upc_number: str ):
     url = f"https://go-upc.com/search?q={upc_number}"
     print(url)
@@ -88,38 +93,48 @@ def delete_previous_image():
 
 
             
-def text_embedding(text):
-    query_embedding = model.encode(text)
+def text_embedding(text_model, text):
+    query_embedding = text_model.encode(text)
     return query_embedding
 
 
-
-
+def keras_ocrr(keras_pipeline , image_path):
+    results = keras_pipeline.recognize([image_path])
+    df = pd.DataFrame(results[0],columns = ['text' , 'bbox'])
+    words =df['text'].tolist()
+    sentence = ' '.join(words)
+    return sentence
 
 def search_by_embedding(image_url):
     embedding = return_image_embedding(model, image_url)
+    ocr_text = keras_ocrr(keras_pipeline ,image_url )
+    text_embed = text_embedding(text_model ,ocr_text )
+
     # Convert the embedding to a list for storage
+    text_embed_list = text_embed.tolist()
     embedding_list = embedding.tolist()
+    # Example: Connect to PostgreSQL and add a product
+    conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=password")
 
     # Define the SQL query without specifying product_id
     sql = f"""
-    SELECT id ,name ,image_url,ean,brand,category,price,description FROM Products ORDER BY embedding <-> '{embedding_list}' LIMIT 3;
+    SELECT * FROM Products ORDER BY embedding <-> '{embedding_list}' ,name_embedding <-> '{text_embed_list}' LIMIT 1;
     """
     # Execute the query
     with conn.cursor() as cur:
         cur.execute(sql)
         result = cur.fetchone()
-        #print(result)
-
+        print(result)
+    
     product_details = {
-                        'id':result[0],
-                        "name":result[1],
-                        'image_url':result[2],
-                        'ean':result[3],
-                        'brand':result[4],
-                        'category':result[5],
-                        'price':result[6],
-                        'description':result[7]
+                    'id':result[0],
+                    "name":result[1],
+                    'image_url':result[2],
+                    'ean':result[3],
+                    'brand':result[4],
+                    'category':result[5],
+                    'price':result[6],
+                    'description':result[7]
                     }
     # Commit the transaction
     conn.commit()

@@ -22,4 +22,5 @@ tqdm==4.66.1
 uvicorn==0.25.0
 python-dotenv
 fastapi-jinja
-sentence-transformers   
+sentence-transformers
+keras-ocr   

@@ -244,6 +244,7 @@ async def upload_image(
             f.write(image.file.read())
         img_path='images/user_image.jpg'
         search_result = search_by_embedding(img_path)
+        
         return JSONResponse(content={'status':'success' , 'product_details': search_result}, status_code=200)
 
     except Exception as e:
@@ -251,7 +252,7 @@ async def upload_image(
             'status':'failed',
             'product_details': 'Not found.'
         }
-        return JSONResponse(content={response}, status_code=404)
+        return JSONResponse(content=response, status_code=404)
         raise HTTPException(status_code=500, detail=str(e))
 
 
