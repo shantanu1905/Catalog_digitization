@@ -251,7 +251,7 @@ async def upload_image(
             'status':'failed',
             'product_details': 'Not found.'
         }
-        return JSONResponse(content={response}, status_code=500)
+        return JSONResponse(content={response}, status_code=404)
         raise HTTPException(status_code=500, detail=str(e))
 
 

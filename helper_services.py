@@ -5,8 +5,8 @@ import json
 from fastapi.responses import JSONResponse
 import psycopg2
 conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=password")
-#Imports for image processing
 
+#Imports for image processing
 from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input, decode_predictions
 from tensorflow.keras.preprocessing import image
 import numpy as np
@@ -16,6 +16,10 @@ from tqdm.auto import tqdm
 import os
 import shutil
 from matplotlib import pyplot as plt
+
+# Text Embedding import
+from sentence_transformers import SentenceTransformer, util
+text_model = SentenceTransformer("multi-qa-MiniLM-L6-cos-v1")
 
 async def scrape_upc(upc_number: str ):
     url = f"https://go-upc.com/search?q={upc_number}"
@@ -81,7 +85,15 @@ def delete_previous_image():
                 os.unlink(file_path)
         except Exception as e:
             print(f"Error deleting file: {e}")
+
+
             
+def text_embedding(text):
+    query_embedding = model.encode(text)
+    return query_embedding
+
+
+
 
 
 def search_by_embedding(image_url):
@@ -113,4 +125,5 @@ def search_by_embedding(image_url):
     conn.commit()
 
     return product_details
+
 
