@@ -7,8 +7,8 @@ import psycopg2
 conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=password")
 
 #Imports for image processing
-from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input, decode_predictions
-from tensorflow.keras.preprocessing import image
+# from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input, decode_predictions
+# from tensorflow.keras.preprocessing import image
 import numpy as np
 import pandas as pd
 import cv2
@@ -66,14 +66,15 @@ async def scrape_upc(upc_number: str ):
 
 
 # Function to return image embedding using ResNet50
-model = ResNet50(include_top=False, weights='imagenet', pooling='avg')
-def return_image_embedding(model, img_path):
-    img = image.load_img(img_path, target_size=(224, 224))
-    x = image.img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-    x = preprocess_input(x)
-    embedding = model.predict(x)
-    return embedding.flatten()
+        
+# model = ResNet50(include_top=False, weights='imagenet', pooling='avg')
+# def return_image_embedding(model, img_path):
+#     img = image.load_img(img_path, target_size=(224, 224))
+#     x = image.img_to_array(img)
+#     x = np.expand_dims(x, axis=0)
+#     x = preprocess_input(x)
+#     embedding = model.predict(x)
+#     return embedding.flatten()
 
 
 
@@ -106,26 +107,26 @@ def keras_ocrr(keras_pipeline , image_path):
     return sentence
 
 def search_by_embedding(image_url):
-    embedding = return_image_embedding(model, image_url)
+    #embedding = return_image_embedding(model, image_url)
     ocr_text = keras_ocrr(keras_pipeline ,image_url )
     text_embed = text_embedding(text_model ,ocr_text )
 
     # Convert the embedding to a list for storage
     text_embed_list = text_embed.tolist()
-    embedding_list = embedding.tolist()
+    #embedding_list = embedding.tolist()
+    
     # Example: Connect to PostgreSQL and add a product
     conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=password")
 
     # Define the SQL query without specifying product_id
     sql = f"""
-    SELECT * FROM Products ORDER BY embedding <-> '{embedding_list}' ,name_embedding <-> '{text_embed_list}' LIMIT 1;
+    SELECT * FROM Products ORDER BY name_embedding <-> '{text_embed_list}' LIMIT 1;
     """
     # Execute the query
     with conn.cursor() as cur:
         cur.execute(sql)
         result = cur.fetchone()
-        print(result)
-    
+
     product_details = {
                     'id':result[0],
                     "name":result[1],

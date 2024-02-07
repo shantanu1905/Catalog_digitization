@@ -11,7 +11,7 @@ import models as _models
 import services as _services
 import schemas as _schemas
 import pandas as pd
-from helper_services import scrape_upc , return_image_embedding , delete_previous_image ,search_by_embedding
+from helper_services import scrape_upc  , delete_previous_image ,search_by_embedding
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -21,11 +21,16 @@ app = _fastapi.FastAPI()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR = os.path.join(BASE_DIR,'images')
 
+
+
 templates = Jinja2Templates(directory="templates")
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     # Render the "index.html" template
     return templates.TemplateResponse("index.html", {"request": request})
+
+
+
 
 @app.post("/api/users" ,  tags = ['User Auth'])
 async def create_user(
@@ -256,3 +261,25 @@ async def upload_image(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/get_catalog/", response_class=FileResponse)
+async def download_catalog(
+    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+    db: _orm.Session = _fastapi.Depends(_services.get_db)
+):
+    
+     # Query all products for the current user
+    all_products = db.query(_models.Product).filter_by(owner_id=user.id).all()
+
+    # Convert the queried data into a DataFrame
+    product_data = [{"id": product.id, "name": product.name, "brand":product.brand, "category":product.category, "price":product.price, "image_url":product.image_url, "description": product.description,  } for product in all_products]
+    df = pd.DataFrame(product_data)
+
+    # Define the file path to save the CSV
+    file_path = BASE_DIR + "/get_catalog_file/products.csv"
+
+    # Save the DataFrame to a CSV file
+    df.to_csv(file_path, index=False)
+    file_path = file_path
+    response = FileResponse(file_path, media_type="text/csv")
+    response.headers["Content-Disposition"] = "attachment; filename=downloaded_file.csv"
+    return response
