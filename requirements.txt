@@ -17,10 +17,10 @@ pydantic_core
 PyJWT
 requests
 SQLAlchemy
-tensorflow
 tqdm
 uvicorn
 python-dotenv
 fastapi-jinja
 sentence-transformers
 keras-ocr   
+tensorflow

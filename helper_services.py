@@ -4,7 +4,26 @@ from fastapi import FastAPI ,Depends ,status ,Response ,HTTPException
 import json
 from fastapi.responses import JSONResponse
 import psycopg2
-conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=password")
+import os 
+
+# Retrieve environment variables
+postgres_host = os.environ.get("POSTGRES_HOST")
+postgres_db = os.environ.get("POSTGRES_DB")
+postgres_user = os.environ.get("POSTGRES_USER")
+postgres_password = os.environ.get("POSTGRES_PASSWORD")
+
+
+
+#conn = psycopg2.connect("host=postgres_host dbname=postgres user=postgres password=password")
+
+
+# Establish PostgreSQL connection
+conn = psycopg2.connect(
+    host=postgres_host,
+    dbname=postgres_db,
+    user=postgres_user,
+    password=postgres_password
+)
 
 #Imports for image processing
 # from tensorflow.keras.applications.resnet50 import ResNet50,preprocess_input, decode_predictions

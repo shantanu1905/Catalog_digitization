@@ -1,3 +1,19 @@
+# version: "3.6"
+
+# services:
+#   postgres-pgvector:
+#     image: ankane/pgvector:latest
+#     container_name: postgres-pgvector
+#     restart: always
+#     volumes:
+#       - postgres_pgvector_volume:/var/lib/postgresql/data
+#     ports:
+#       - 5432:5432
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: password
+# volumes:
+#   postgres_pgvector_volume:
 version: "3.6"
 
 services:
@@ -12,5 +28,25 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+    networks:
+      - my_network
+
+  my_image:
+    image: ondc_9feb2023:latest
+    container_name: ondc_9feb2023
+    restart: always
+    depends_on:
+      - postgres-pgvector
+    environment:
+      POSTGRES_HOST: postgres-pgvector  # Hostname of the PostgreSQL container
+      POSTGRES_DB: postgres              # Name of the PostgreSQL database
+      POSTGRES_USER: postgres            # Username for PostgreSQL authentication
+      POSTGRES_PASSWORD: password        # Password for PostgreSQL authentication
+    networks:
+      - my_network
+
+networks:
+  my_network:
+
 volumes:
   postgres_pgvector_volume:

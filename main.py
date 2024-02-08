@@ -75,19 +75,19 @@ async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_
     return user
 
 
-@app.post("/api/user-posts", response_model=_schemas.Post)
-async def create_post(
-    post: _schemas.PostCreate,
-    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
-    db: _orm.Session = _fastapi.Depends(_services.get_db)
-):
-    return await _services.create_post(user=user, db=db, post=post)
+# @app.post("/api/user-posts", response_model=_schemas.Post)
+# async def create_post(
+#     post: _schemas.PostCreate,
+#     user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+#     db: _orm.Session = _fastapi.Depends(_services.get_db)
+# ):
+#     return await _services.create_post(user=user, db=db, post=post)
 
 
-@app.get("/api/my-posts", response_model=List[_schemas.Post])
-async def get_user_posts(user: _schemas.User = _fastapi.Depends(_services.get_current_user),
-                         db: _orm.Session = _fastapi.Depends(_services.get_db)):
-    return await _services.get_user_posts(user=user, db=db)
+# @app.get("/api/my-posts", response_model=List[_schemas.Post])
+# async def get_user_posts(user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+#                          db: _orm.Session = _fastapi.Depends(_services.get_db)):
+#     return await _services.get_user_posts(user=user, db=db)
 
 
 @app.post("/search_ean" ,  tags = ['Retail Product'])
