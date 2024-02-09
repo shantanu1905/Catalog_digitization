@@ -7,5 +7,6 @@ CREATE TABLE products (
     category VARCHAR(255),
     price REAL,
     description TEXT,
-    embedding VECTOR(2048)
+    embedding VECTOR(2048),
+    name_embedding VECTOR(328)
 );

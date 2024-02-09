@@ -41,9 +41,13 @@ from sentence_transformers import SentenceTransformer, util
 text_model = SentenceTransformer("multi-qa-MiniLM-L6-cos-v1")
 
 
-#keras ocr pipeline and impors
+#keras ocr pipeline and imports
 import keras_ocr
 keras_pipeline = keras_ocr.pipeline.Pipeline()
+
+#Speech Recognition imports
+import speech_recognition as sr
+from typing import Union
 
 async def scrape_upc(upc_number: str ):
     url = f"https://go-upc.com/search?q={upc_number}"
@@ -161,4 +165,55 @@ def search_by_embedding(image_url):
 
     return product_details
 
+def search_by_embedding_voice(audio_file):
+    audio_to_text = recognize_speech(audio_file)
+    print(f"Voice input given by user: {audio_to_text}")
+    
+    text_embed = text_embedding(text_model,audio_to_text)
 
+    # Convert the embedding to a list for storage
+    text_embed_list = text_embed.tolist()
+    #embedding_list = embedding.tolist()
+    
+    # Example: Connect to PostgreSQL and add a product
+    conn = psycopg2.connect("host=localhost dbname=postgres user=postgres password=password")
+
+    # Define the SQL query without specifying product_id
+    sql = f"""
+    SELECT * FROM Products ORDER BY name_embedding <-> '{text_embed_list}' LIMIT 5;
+    """
+    # Execute the query
+    with conn.cursor() as cur:
+        cur.execute(sql)
+        result = cur.fetchone()
+
+    product_details = {
+                    'id':result[0],
+                    "name":result[1],
+                    'image_url':result[2],
+                    'ean':result[3],
+                    'brand':result[4],
+                    'category':result[5],
+                    'price':result[6],
+                    'description':result[7]
+                    }
+    # Commit the transaction
+    conn.commit()
+
+    return product_details
+def recognize_speech(audio_file_path: str) -> Union[str, dict]:
+    # Create a recognizer object
+    r = sr.Recognizer()
+
+    # Read the audio file
+    with sr.AudioFile(audio_file_path) as source:
+        audio_data = r.record(source)  # Read the entire audio file
+
+    # Recognize speech using Sphinx
+    try:
+        recognized_text =  r.recognize_google(audio_data)
+        return recognized_text
+    except sr.UnknownValueError:
+        return {"error": "Sphinx could not understand the audio"}
+    except sr.RequestError as e:
+        return {"error": f"Sphinx error: {e}"}

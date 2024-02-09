@@ -8,9 +8,9 @@ import email_validator as _email_check
 import fastapi as _fastapi
 import fastapi.security as _security
 from passlib.hash import bcrypt
-import database as _database
-import schemas as _schemas
-import models as _models
+import apiservices.database as _database
+import apiservices.schemas as _schemas
+import apiservices.models as _models
 
 _dotenv.load_dotenv()
 

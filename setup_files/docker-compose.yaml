@@ -32,8 +32,8 @@ services:
       - my_network
 
   my_image:
-    image: ondc_9feb2023:latest
-    container_name: ondc_9feb2023
+    image: ondc_9feb:latest
+    container_name: ondc_container
     restart: always
     depends_on:
       - postgres-pgvector

@@ -3,13 +3,11 @@ import datetime as _dt
 import sqlalchemy as _sql
 import sqlalchemy.orm as _orm
 import passlib.hash as _hash
-from database import Base , engine
-
-import database as _database
+from apiservices.database import Base , engine
+from apiservices import database as _database
 
 
 Base.metadata.create_all(engine)
-
 class User(_database.Base):
     __tablename__ = "users"
     id = _sql.Column(_sql.Integer, primary_key=True, index=True)

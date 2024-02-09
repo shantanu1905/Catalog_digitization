@@ -1,25 +1,25 @@
 from typing import List
 from fastapi import HTTPException 
 import fastapi as _fastapi
-from fastapi import FastAPI, UploadFile, HTTPException, File, Form
+from fastapi import FastAPI, UploadFile, HTTPException, File
 import shutil
 import os
 import fastapi.security as _security
-from fastapi.responses import HTMLResponse , JSONResponse , FileResponse , Response ,StreamingResponse
+from fastapi.responses import HTMLResponse , JSONResponse , FileResponse
 import sqlalchemy.orm as _orm
-import models as _models
-import services as _services
-import schemas as _schemas
+import apiservices.models as _models
+import apiservices.services as _services
+import apiservices.schemas as _schemas
 import pandas as pd
-from helper_services import scrape_upc  , delete_previous_image ,search_by_embedding
-from fastapi import FastAPI, Request
+from apiservices.helper_services import scrape_upc  , delete_previous_image ,search_by_embedding ,  search_by_embedding_voice
+from fastapi import Request
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+
 
 
 app = _fastapi.FastAPI()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_DIR = os.path.join(BASE_DIR,'images')
+UPLOAD_DIR = os.path.join(BASE_DIR,'user_files_upload')
 
 
 
@@ -102,21 +102,7 @@ async def search_ean(
         return JSONResponse(content={"message": "Sorry, we were not able to find a product"}, status_code=404)
 
     try:
-        print(response)
-
-        # new_product = _models.Product(
-        #     name=response['product_name'],
-        #     image_url=response['image_source'],
-        #     ean=response['ean'],
-        #     brand=response['brand'],
-        #     category=response['category'],
-        #     price=None,
-        #     description=None,
-        #     owner_id=user.id 
-        # )
-        # db.add(new_product)
-        # db.commit()
-        # db.refresh(new_product)
+        print(f"Search EAN Response: {response}")
 
         return JSONResponse(content=response, status_code=200)
     except HTTPException as e:
@@ -226,13 +212,6 @@ async def add_product(
     return data
 
 
-
-# Define the path to the images folder
-IMAGES_FOLDER = "images"
-# Create the images folder if it doesn't exist
-os.makedirs(IMAGES_FOLDER, exist_ok=True)
-# Route to handle image upload
-
 @app.post("/product_search_by_image" , tags = ['Retail Product'])
 async def upload_image(
     image: UploadFile = File(...) ,
@@ -240,15 +219,15 @@ async def upload_image(
     db: _orm.Session = _fastapi.Depends(_services.get_db)
     ):
     try:
-        # Delete previous image, if any
-        delete_previous_image()
 
         # Save the uploaded image to the images folder
-        file_path = os.path.join(IMAGES_FOLDER, 'user_image.jpg')
+        file_path = f"{UPLOAD_DIR}/{image.filename}"
         with open(file_path, "wb") as f:
             f.write(image.file.read())
-        img_path='images/user_image.jpg'
-        search_result = search_by_embedding(img_path)
+        search_result = search_by_embedding(file_path)
+
+        # Delete the uploaded audio file
+        os.remove(file_path)
         
         return JSONResponse(content={'status':'success' , 'product_details': search_result}, status_code=200)
 
@@ -261,7 +240,7 @@ async def upload_image(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.get("/get_catalog/", response_class=FileResponse)
+@app.get("/get_catalog/", response_class=FileResponse , tags = ['Retail Product'])
 async def download_catalog(
     user: _schemas.User = _fastapi.Depends(_services.get_current_user),
     db: _orm.Session = _fastapi.Depends(_services.get_db)
@@ -283,3 +262,37 @@ async def download_catalog(
     response = FileResponse(file_path, media_type="text/csv")
     response.headers["Content-Disposition"] = "attachment; filename=downloaded_file.csv"
     return response
+
+
+# FastAPI endpoint for product voice search
+@app.post("/product_voice_search" ,  tags = ['Retail Product'])
+async def product_voice_search(
+    audio: UploadFile = File(...),
+    user: _schemas.User = _fastapi.Depends(_services.get_current_user),
+    db: _orm.Session = _fastapi.Depends(_services.get_db)):
+    
+    try :
+        # Save the uploaded audio file
+        audio_file_path = f"{UPLOAD_DIR}/{audio.filename}"
+        with open(audio_file_path, "wb") as buffer:
+            buffer.write(audio.file.read())
+
+        # Recognize speech from the uploaded audio file
+        recognized_text = search_by_embedding_voice(audio_file_path)
+
+        # Delete the uploaded audio file
+        os.remove(audio_file_path)
+
+        response = {'status':'success',
+                    'product_details': recognized_text}
+        return  JSONResponse(content=response, status_code=200)
+    
+    except Exception as e:
+        response = {
+            'status':'failed',
+            'product_details': 'Not found.'
+        }
+        return JSONResponse(content=response, status_code=404)
+        raise HTTPException(status_code=500, detail=str(e))
+
+    
