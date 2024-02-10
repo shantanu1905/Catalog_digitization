@@ -188,7 +188,7 @@ async def add_product(
     db: _orm.Session = _fastapi.Depends(_services.get_db)
 ):
     # Check if a product with the same EAN already exists
-    existing_product = db.query(_models.Product).filter(_models.Product.ean == new_product.ean).first()
+    existing_product = db.query(_models.Product).filter(_models.Product.ean == new_product.ean , _models.Product.owner_id==user.id).first()
 
     if existing_product:
         # If a product with the same EAN already exists, return an error message
