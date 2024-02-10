@@ -8,7 +8,9 @@ This catalog is to be digitized using a combination of intuitive interfaces such
 In some cases, a combination of these interfaces are required to digitize an SKU e.g. scan image which pre-fills the product name from the repository, with the remaining attributes filled using text or voice input.
 
 ### Project Architecture :
-![cateloge_digitization](https://github.com/shantanu1905/Catalog_digitization/assets/59206895/e23225ac-83f8-4676-8dfd-89ff37429a57)
+![14](https://github.com/shantanu1905/Catalog_digitization/assets/59206895/9c32d52f-68f0-4d26-9e2d-3f0380fe362c)
+
+
 
 ### Use Cases :
 
@@ -17,6 +19,9 @@ Scan Barcode: Add products by scanning barcodes, fetching details automatically.
 
 **Image Recognition-**
 Take Picture: Utilize image similarity search for product recognition and catalog entry.
+
+**Voice Recognition-**
+Search by Voice: Utilize voice by similarity search for product recognition and catalog entry.
 
 **Create/Edit Catalog-**
 Manual Entry: Input details manually for product creation or editing.
@@ -339,3 +344,31 @@ id,name,brand,category,price,image_url,description
 25,add product,add brand,add category,add price,add image url,add description
 ```
 
+#### 7. Add product by voice   (/product_voice_search)
+- **Endpoint Description** -  This endpoint provides products details stored in vector database (Postgres Vector Database) in request of voice/audio file provided by user.
+- - This feature works on **exact and approximate nearest neighbor search** ,**L2 distance, inner product, and cosine distance** between vectors(embedding of images or text).
+  - refer this for more information : [https://github.com/pgvector/pgvector] [https://www.analyticsvidhya.com/blog/2022/07/recommending-similar-images-using-image-embedding/]
+  - --
+- **Method** - POST
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| ` Bearer Token ` | `string` | **Required**. access token |
+| ` form data ` | 'field name' `audio` | **Required**. form field [files] |
+
+#####  Response Body
+```
+{
+  "status": "success",
+  "product_details": {
+    "id": 15,
+    "name": "Maggi Masala 2-Minute Noodles India Snack",
+    "image_url": "https://m.media-amazon.com/images/I/71Y7pDHbi8L._SX679_PIbundle-24,TopRight,0,0_AA679SH20_.jpg",
+    "ean": null,
+    "brand": null,
+    "category": "Grocery & Gourmet Food",
+    "price": 12.0,
+    "description": "Need a quick meal on the go? Reach for Maggi Masala Noodles! Maggi is spreading happiness with its instant, tasty, and healthy noodles. Bringing you a classic snack directly from India. 2-Minute Masala Noodles are perfectly convenient for the snacking occasion. Delicious Masala flavor brought to with convenience. Maggi Masala Noodles Contain: Wheat Flour, Edible Vegetable Oil, Salt, Mineral (Calcium Carbonate), Guar Gum. Masala Tastemaker : Hydrolyzed Groundnut Protein, Mixed Spices 23.6% (Onion Powder, Coriander, Chili Powder, Turmeric, Garlic Powder, Cumin, Aniseed, Fenugreek, Ginger, Black Pepper, Clove, Nutmeg, Cardamom), Noodle Powder (Wheat Flour, Edible Vegetable Oil, Salt, Wheat Gluten, Mineral (Calcium Carbonate), Guar Gum), Sugar, Edible Starch, Salt, Edible Vegetable Oil, Acidifying Agent (330), Mineral (Potassium Chloride), Color (150d), Flavor Enhancer (635), Raising Agent (500(ii))."
+  }
+}
+```
