@@ -274,6 +274,7 @@ async def product_voice_search(
     try :
         # Save the uploaded audio file
         audio_file_path = f"{UPLOAD_DIR}/{audio.filename}"
+        #print(audio_file_path)
         with open(audio_file_path, "wb") as buffer:
             buffer.write(audio.file.read())
 
