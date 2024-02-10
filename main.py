@@ -293,6 +293,7 @@ async def product_voice_search(
             'status':'failed',
             'product_details': 'Not found.'
         }
+        os.remove(audio_file_path)
         return JSONResponse(content=response, status_code=404)
         raise HTTPException(status_code=500, detail=str(e))
 
