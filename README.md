@@ -48,6 +48,17 @@ Catalog Management: Review, modify, or delete entries in the catalog.
 ```
 uvicorn main:app --reload
 ```
+## Application Screenshots
+![screen1](https://github.com/shantanu1905/Catalog_digitization/assets/59206895/39c003d4-2c52-4468-9ec5-84ccb4f33a1b)
+
+![screen2](https://github.com/shantanu1905/Catalog_digitization/assets/59206895/10d199fc-a3a6-4541-ac43-77a95537f274)
+
+![screen3](https://github.com/shantanu1905/Catalog_digitization/assets/59206895/b53227a9-3324-4c3f-94a0-343d1813f24c)
+
+
+
+
+
 
 ## API Documentation
 ### Authorization
