@@ -75,6 +75,9 @@ uvicorn main:app --reload
 
 ![screen3](https://github.com/shantanu1905/Catalog_digitization/assets/59206895/b53227a9-3324-4c3f-94a0-343d1813f24c)
 
+## Application Demo Video
+[![youtube](https://github.com/shantanu1905/Catalog_digitization/assets/59206895/cd693651-4971-4f96-b28b-359d753908fb)](https://youtu.be/3XvMEXGZ5bw?si=R44vdcqisgz52VF7)
+
 
 
 
