@@ -33,16 +33,36 @@ Catalog Management: Review, modify, or delete entries in the catalog.
 - CSV Format: Download catalog in CSV format for external use.
 - PDF Format: Generate a PDF version for sharing or printing.
 
-### Project Setup Instructions
+## Technologies Used 
+[![My Skills](https://skillicons.dev/icons?i=py,pytorch,sqlite,tensorflow,docker,github,&perline=7)](https://skillicons.dev)
 
+### Project Setup Instructions
+- **pgvector database setup using docker**
+  -- Make sure that system has docker installed on it.
+  -- The below command is used to start Docker containers defined in a docker-compose.yml file in detached mode, meaning the containers run in the background.
+```
+ compose up -d
+```
+- open cmd and enter below command
+```
+docker exec -it postgres-pgvector psql -U postgres -d postgres -c 'CREATE EXTENSION vector'
+```
+- open cmd and enter below command to create table in *pgvector* database running in docker
+```
+docker exec -it postgres-pgvector psql -U postgres -d postgres -c 'CREATE TABLE products (id SERIAL PRIMARY KEY,name VARCHAR(255),image_url VARCHAR(255),ean VARCHAR(255),brand VARCHAR(255),category VARCHAR(255),price REAL,description TEXT,embedding VECTOR(2048),name_embedding VECTOR(384));'
+```
 - Fork and Clone the repo using
 ```
- git clone https://github.com/shantanu1905/Hackathon-Project.git
+https://github.com/shantanu1905/Catalog_digitization.git
 ```
 - Install the Dependencies from `requirements.txt`
 - Make sure your system has python 3.11.8 installed and before installing dependencies make sure your virtual environment is activated .
 ```
  pip install -r requirements.txt 
+```
+- Run **setup_files/products_insert.py** file to populate product in database.
+```
+python products_insert.py
 ```
 - Run the Server and see the demo at [http://localhost:8000/](http://localhost:8000/)
 ```
