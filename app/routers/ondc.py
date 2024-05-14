@@ -164,7 +164,7 @@ async def add_product(
 
 
 # ml microservice route - OCR route
-@router.post('/ocr' ,  tags=['Machine learning Service'] )
+@router.post('/ocr' ,  )
 def ocr(file: UploadFile = File(...),
         user: _schemas.User = _fastapi.Depends(_services.get_current_user)):
     
@@ -180,8 +180,8 @@ def ocr(file: UploadFile = File(...),
     
     request_json = {
         'file': file_base64
-    }
-   
+        }
+
     # Call the OCR microservice with the request JSON
     response = ocr_rpc.call(request_json)
 
