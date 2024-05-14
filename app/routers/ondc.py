@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter , FastAPI ,HTTPException , Depends
+from fastapi import APIRouter , FastAPI ,HTTPException , Depends , UploadFile ,File
 import fastapi as _fastapi
 from fastapi.responses import JSONResponse 
 import sqlalchemy.orm as _orm
@@ -9,7 +9,10 @@ import app.auth.auth_services as _services
 import app.local_database.schemas as _schemas
 from app.ondc.ean_search import scrape_upc
 from fastapi.templating import Jinja2Templates
+import app.ondc.rpc_client as rpc_client
 from app.logger import Logger
+import base64
+import os
 
 
 
@@ -159,3 +162,30 @@ async def add_product(
     }
     return data
 
+
+# ml microservice route - OCR route
+@router.post('/ocr' ,  tags=['Machine learning Service'] )
+def ocr(file: UploadFile = File(...),
+        user: _schemas.User = _fastapi.Depends(_services.get_current_user)):
+    
+    # Save the uploaded file to a temporary location
+    with open(file.filename, "wb") as buffer:
+        buffer.write(file.file.read())
+
+    ocr_rpc = rpc_client.OcrRpcClient()
+
+    with open(file.filename, "rb") as buffer:
+        file_data = buffer.read()
+        file_base64 = base64.b64encode(file_data).decode()
+    
+    request_json = {
+        'file': file_base64
+    }
+   
+    # Call the OCR microservice with the request JSON
+    response = ocr_rpc.call(request_json)
+
+    # Delete the temporary image file
+    os.remove(file.filename)
+
+    return response

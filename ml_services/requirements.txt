@@ -1,0 +1,10 @@
+pika
+pillow
+tensorflow
+pandas
+python-dotenv
+keras-ocr
+easyocr
+torch 
+torchvision 
+torchaudio

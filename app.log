@@ -6,3 +6,5 @@
 2024-05-14 00:13:45 India Standard Time.236 INFO ondc - search_ean: Going for EAN API for product search:  8901207040795
 2024-05-14 00:13:56 India Standard Time.538 INFO ondc - search_ean: EAN for product Not found in database: 8901207040795
 2024-05-14 00:13:57 India Standard Time.806 INFO ondc - search_ean: Going for EAN API for product search:  8901207040795
+2024-05-14 00:42:34 India Standard Time.550 INFO ondc - search_ean: EAN for product Not found in database: 8901207040795
+2024-05-14 00:42:36 India Standard Time.164 INFO ondc - search_ean: Going for EAN API for product search:  8901207040795
