@@ -57,3 +57,11 @@ class EAN(pydantic.BaseModel):
         orm_mode = True
         from_attributes = True  # Add this line to enable from_orm
    
+
+class VoiceSearch(pydantic.BaseModel):
+    voice_input : str
+
+    class Config:
+        orm_mode = True
+        from_attributes = True  # Add this line to enable from_orm
+   

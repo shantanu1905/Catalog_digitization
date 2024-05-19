@@ -38,7 +38,6 @@ class OCRService:
         print(" [^]OCR processing done !!!")
 
         response = {
-          
             "ocr_text": ocr_text
         }
 

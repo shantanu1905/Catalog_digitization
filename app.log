@@ -8,3 +8,42 @@
 2024-05-14 00:13:57 India Standard Time.806 INFO ondc - search_ean: Going for EAN API for product search:  8901207040795
 2024-05-14 00:42:34 India Standard Time.550 INFO ondc - search_ean: EAN for product Not found in database: 8901207040795
 2024-05-14 00:42:36 India Standard Time.164 INFO ondc - search_ean: Going for EAN API for product search:  8901207040795
+2024-05-18 18:05:11 India Standard Time.071 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-18 18:05:20 India Standard Time.595 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-18 18:08:47 India Standard Time.380 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-18 18:08:47 India Standard Time.381 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-19 21:34:49 India Standard Time.434 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-19 21:35:00 India Standard Time.536 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-19 21:35:00 India Standard Time.537 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-19 23:08:34 India Standard Time.114 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:10:02 India Standard Time.075 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:13:04 India Standard Time.354 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:16:09 India Standard Time.434 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:17:05 India Standard Time.587 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:19:27 India Standard Time.542 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:20:18 India Standard Time.039 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:22:43 India Standard Time.895 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:25:10 India Standard Time.987 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:27:46 India Standard Time.049 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:28:36 India Standard Time.594 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:30:52 India Standard Time.562 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:33:35 India Standard Time.463 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:34:24 India Standard Time.737 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:36:19 India Standard Time.502 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:39:16 India Standard Time.892 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:39:26 India Standard Time.105 ERROR ondc - voice_search: Unexpected data format: [
+2024-05-19 23:41:55 India Standard Time.415 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:43:19 India Standard Time.911 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:45:03 India Standard Time.481 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:45:44 India Standard Time.260 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:57:48 India Standard Time.548 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-19 23:58:25 India Standard Time.607 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-20 00:07:54 India Standard Time.608 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-20 00:09:42 India Standard Time.908 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-20 00:10:08 India Standard Time.938 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-20 00:11:25 India Standard Time.118 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-20 00:12:10 India Standard Time.346 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-20 00:13:01 India Standard Time.259 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-20 00:13:24 India Standard Time.027 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-20 00:13:53 India Standard Time.175 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-20 00:15:28 India Standard Time.624 INFO ondc - voice_search: voice based products search initiated for user_id:1
