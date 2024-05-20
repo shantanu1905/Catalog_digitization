@@ -28,7 +28,7 @@ class Product(_database.Base):
     id = _sql.Column(_sql.Integer, primary_key=True, index=True)
     name = _sql.Column(_sql.String, index=True)
     image_url = _sql.Column(_sql.String, index=True)
-    ean = _sql.Column(_sql.Integer,index=True)
+    ean = _sql.Column(_sql.String,index=True )
     brand = _sql.Column(_sql.String, index=True)
     category = _sql.Column(_sql.String, index=True)
     price  = _sql.Column(_sql.Integer,index=True)

@@ -86,12 +86,15 @@ async def get_products_stats(
 ):
     total_count = db.query(func.count(_models.Product.id)).filter_by(owner_id=user.id).scalar()
     unique_category_count = db.query(func.count(_models.Product.category.distinct())).filter_by(owner_id=user.id).scalar()
+    unique_brand_count = db.query(func.count(_models.Product.brand.distinct())).filter_by(owner_id=user.id).scalar()
     logger.info(f"Total count of products retrieved for user_id: {user.id}")
     logger.info(f"Unique category count retrieved for user_id: {user.id}")
+    logger.info(f"Unique brand count retrieved for user_id: {user.id}")
 
     data = {
         "product_total_count": total_count,
-        "product_category_count":unique_category_count
+        "product_category_count":unique_category_count,
+        "total_brands": unique_brand_count
     }
 
     return data
@@ -270,15 +273,15 @@ async def voice_search(
         product_info_list = generate_product_info(product_names)
 
         response = []
-        #add logic to handle  if it does not find any key then return None
+        #add logic to handle  if it does not find any key then return None for all keys
         for items in product_info_list:
             data = {
-                'name': items['name'],
-               
-                'brand': items['brand'],
-                'category': items['category'],
-                'description': items['description'],
-                'price': items['price']
+                'name': items['name'] if 'name' in items else None,
+                'image_url': items['image_url'] if 'image_url' in items else None,
+                'brand': items['brand'] if 'brand' in items else None,
+                'category': items['category'] if 'category' in items else None,
+                'description': items['description'] if 'description' in items else None,
+                'price': items['price'] if 'price' in items else None
             }
             response.append(data)
         return JSONResponse(content={'status':'success' , 'product_details': response}, status_code=200)
