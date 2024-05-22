@@ -1,4 +1,5 @@
 import jwt
+from fastapi import APIRouter ,  HTTPException 
 import sqlalchemy.orm as _orm
 import passlib.hash as _hash
 import email_validator as _email_check
@@ -8,16 +9,23 @@ from passlib.hash import bcrypt
 import app.local_database.database as _database
 import app.local_database.schemas as _schemas
 import app.local_database.models as _models
+import app.ondc.email_notification as email_notification
 import random
-import json
-import pika
-import time
 import os
+from app.logger import Logger
 
 # Load environment variables
 JWT_SECRET = os.getenv("JWT_SECRET")
-RABBITMQ_URL = os.getenv("RABBITMQ_URL")
 oauth2schema = _security.OAuth2PasswordBearer("/api/token")
+
+
+# Create an instance of the Logger class
+logger_instance = Logger()
+# Get a logger for your module
+logger = logger_instance.get_logger("ondc api")
+router = APIRouter(
+    tags=["ondc"],)
+
 
 
 def create_database():
@@ -87,48 +95,17 @@ def generate_otp():
     # Generate a random OTP
     return str(random.randint(100000, 999999))
 
-def connect_to_rabbitmq():
-    # Connect to RabbitMQ
-    while True:
-        try:
-            connection = pika.BlockingConnection(pika.ConnectionParameters(RABBITMQ_URL))
-            return connection
-        except pika.exceptions.AMQPConnectionError:
-            print("Failed to connect to RabbitMQ. Retrying in 5 seconds...")
-            time.sleep(5)
-
-def send_otp(email, otp, channel):
+def send_otp(email, otp):
     # Send an OTP email notification using RabbitMQ
-    connection = connect_to_rabbitmq()
-    channel = connection.channel()
-    message = {'email': email,
-               'subject': 'Account Verification OTP Notification',
-               'other': 'null',
-               'body': f'Your OTP for account verification is: {otp} \n Please enter this OTP on the verification page to complete your account setup. \n If you did not request this OTP, please ignore this message.\n Thank you '
-                }
-
     try:
-        queue_declare_ok = channel.queue_declare(queue='email_notification', passive=True)
-        current_durable = queue_declare_ok.method.queue
-
-        if current_durable:
-            if queue_declare_ok.method.queue != current_durable:
-                channel.queue_delete(queue='email_notification')
-                channel.queue_declare(queue='email_notification', durable=True)
-        else:
-            channel.queue_declare(queue='email_notification', durable=True)
-
-        channel.basic_publish(
-            exchange="",
-            routing_key='email_notification',
-            body=json.dumps(message),
-            properties=pika.BasicProperties(
-                delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
-            ),
-        )
-        print("Sent OTP email notification")
+        message = {'email': email,
+                'subject': 'Account Verification OTP Notification',
+                'other': 'null',
+                'body': f'Your OTP for account verification is: {otp} \n Please enter this OTP on the verification page to complete your account setup. \n If you did not request this OTP, please ignore this message.\n Thank you '
+                    }
+        otp_auth =email_notification.notification(message)
+        if otp_auth :
+            logger.info(f"OTP send to {email}")
     except Exception as err:
         print(f"Failed to publish message: {err}")
-    finally:
-        channel.close()
-        connection.close()
+   

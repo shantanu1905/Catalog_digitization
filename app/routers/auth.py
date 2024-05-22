@@ -1,32 +1,28 @@
-from fastapi import APIRouter ,  HTTPException ,  File, UploadFile
+from fastapi import APIRouter ,  HTTPException , BackgroundTasks
 import fastapi as _fastapi
 import app.local_database.schemas as _schemas
 import app.local_database.models as _models
 import sqlalchemy.orm as _orm
 import app.auth.auth_services as _services
-import logging
+from app.auth.auth_services import send_otp
 from fastapi.security import OAuth2PasswordBearer
 import app.local_database.database as _database
 from jwt.exceptions import DecodeError
-import pika
+from app.logger import Logger
 import jwt
 import os 
 
-#logger 
+# Create an instance of the Logger class
+logger_instance = Logger()
+# Get a logger for your module
+logger = logger_instance.get_logger("ondc api")
+router = APIRouter(
+    tags=["ondc"],)
+
 
 # Retrieve environment variables
 JWT_SECRET = os.environ.get("JWT_SECRET")
 AUTH_BASE_URL = os.environ.get("AUTH_BASE_URL")
-RABBITMQ_URL = os.environ.get("RABBITMQ_URL")
-
-# rabbitmq connection
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
-channel = connection.channel()
-channel.queue_declare(queue='email_notification')
-
-router = APIRouter(
-    tags=["Auth"],)
-
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -53,7 +49,7 @@ async def create_user(
     db_user = await _services.get_user_by_email(email=user.email, db=db)
 
     if db_user:
-        logging.info('User with that email already exists')
+        logger.info('User with that email already exists')
         raise _fastapi.HTTPException(
             status_code=200,
             detail="User with that email already exists")
@@ -82,16 +78,20 @@ async def generate_token(
     user = await _services.authenticate_user(email=user_data.username, password=user_data.password, db=db)
 
     if user == "is_verified_false":
-        logging.info('Email verification is pending. Please verify your email to proceed. ')
+        logger.info('Email verification is pending. Please verify your email to proceed. ')
+        response = {
+            "is_verified": False,
+            "msg":"Email verification is pending. Please verify your email to proceed."
+        }
         raise _fastapi.HTTPException(
-            status_code=403, detail="Email verification is pending. Please verify your email to proceed.")
+            status_code=403, detail=response)
 
     if not user:
-        logging.info('Invalid Credentials')
+        logger.info('Invalid Credentials')
         raise _fastapi.HTTPException(
             status_code=401, detail="Invalid Credentials")
     
-    logging.info('JWT Token Generated')
+    logger.info('JWT Token Generated')
     return await _services.create_token(user=user)
 
 
@@ -106,19 +106,22 @@ async def get_user(email: str, db: _orm.Session = _fastapi.Depends(_services.get
   
 
 @router.post("/api/users/generate_otp", response_model=str)
-async def send_otp_mail(userdata: _schemas.GenerateOtp, db: _orm.Session = _fastapi.Depends(_services.get_db)):
+async def send_otp_mail( background_tasks: BackgroundTasks, userdata: _schemas.GenerateOtp, db: _orm.Session = _fastapi.Depends(_services.get_db)):
     user = await _services.get_user_by_email(email=userdata.email, db=db)
 
     if not user:
         raise _fastapi.HTTPException(status_code=404, detail="User not found")
 
     if user.is_verified:
-        raise _fastapi.HTTPException(status_code=400, detail="User is already verified")
+        response = {
+            "is_verified": True,
+            "msg":"User is already verified"
+        }
+        raise _fastapi.HTTPException(status_code=400, detail=response)
 
     # Generate and send OTP
     otp = _services.generate_otp()
-    print(otp)
-    _services.send_otp(userdata.email, otp, channel)
+    background_tasks.add_task(send_otp,userdata.email, otp)
 
     # Store the OTP in the database
     user.otp = otp
