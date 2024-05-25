@@ -80,10 +80,10 @@ async def create_token(user: _models.User):
     user_dict = user_obj.model_dump()
     del user_dict["date_created"]
     token = jwt.encode(user_dict, JWT_SECRET, algorithm="HS256")
-    return dict(access_token=token, token_type="bearer")
+    return dict(access_token=token, token_type="bearer" ,  is_verified=True , success=True , username=user_dict['email'] , name=user_dict['name'] , id =user_dict['id'] )
 
 async def get_current_user(db: _orm.Session = _fastapi.Depends(get_db), token: str = _fastapi.Depends(oauth2schema)):
-     # Get the current authenticated user from the JWT token
+    # Get the current authenticated user from the JWT token
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
         user = db.query(_models.User).get(payload["id"])

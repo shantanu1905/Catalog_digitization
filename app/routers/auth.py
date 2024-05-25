@@ -1,5 +1,6 @@
 from fastapi import APIRouter ,  HTTPException , BackgroundTasks
 import fastapi as _fastapi
+from fastapi.responses import JSONResponse
 import app.local_database.schemas as _schemas
 import app.local_database.models as _models
 import sqlalchemy.orm as _orm
@@ -50,16 +51,25 @@ async def create_user(
 
     if db_user:
         logger.info('User with that email already exists')
+        response = {
+            "is_verified": False,
+            "msg":"User with that email already exists"
+        }
+        
         raise _fastapi.HTTPException(
             status_code=200,
-            detail="User with that email already exists")
+            detail=response)
     
 
     user = await _services.create_user(user=user, db=db)
+    response = {
+            "is_verified": False,
+            "msg":"User Registered, Please verify email to activate account !"
+        }
 
     return _fastapi.HTTPException(
             status_code=201,
-            detail="User Registered, Please verify email to activate account !")
+            detail=response)
 
 
 
@@ -92,7 +102,8 @@ async def generate_token(
             status_code=401, detail="Invalid Credentials")
     
     logger.info('JWT Token Generated')
-    return await _services.create_token(user=user)
+    response  = {'detail':await _services.create_token(user=user)}
+    return  response
 
 
 @router.get("/api/users/me", response_model=_schemas.User )
@@ -127,7 +138,11 @@ async def send_otp_mail( background_tasks: BackgroundTasks, userdata: _schemas.G
     user.otp = otp
     db.add(user)
     db.commit()
-    return "OTP sent to your email"
+    response = {
+            "is_verified": False,
+            "msg":"OTP send to email"
+        }
+    return JSONResponse(content=response, status_code=200)
 
 
 @router.post("/api/users/verify_otp")
@@ -138,13 +153,23 @@ async def verify_otp(userdata: _schemas.VerifyOtp, db: _orm.Session = _fastapi.D
         raise _fastapi.HTTPException(status_code=404, detail="User not found")
 
     if not user.otp or user.otp != userdata.otp:
-        raise _fastapi.HTTPException(status_code=400, detail="Invalid OTP")
+        response = {
+            "is_verified": False,
+            "msg":"Invalid OTP"
+        }
+        raise _fastapi.HTTPException(status_code=400, detail=response)
 
     # Update user's is_verified field
     user.is_verified = True
     user.otp = None  # Clear the OTP
     db.add(user)
     db.commit()
+    response = {
+            "detail":{
+            "is_verified": False,
+            "msg":"Account verified !"
+            }
+        }
 
-    return "Email verified successfully"
+    return JSONResponse(content=response, status_code=200)
 

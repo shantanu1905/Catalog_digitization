@@ -1,5 +1,6 @@
 import datetime
-import pydantic
+import pydantic 
+from typing import List, Optional
 
 
 class UserBase(pydantic.BaseModel):
@@ -65,3 +66,8 @@ class VoiceSearch(pydantic.BaseModel):
         orm_mode = True
         from_attributes = True  # Add this line to enable from_orm
    
+class BulkProductRequest(pydantic.BaseModel):
+    product_details: List[Product]
+
+    class Config:
+        orm_mode = True

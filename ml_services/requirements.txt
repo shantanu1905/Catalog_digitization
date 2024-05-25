@@ -8,3 +8,5 @@ easyocr
 torch 
 torchvision 
 torchaudio
+sentence-transformers
+numpy

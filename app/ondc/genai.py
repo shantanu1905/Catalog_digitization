@@ -12,6 +12,8 @@ load_dotenv()
 #Gemini free trial 15 request per minutes
 gemini_api_key=os.getenv("GEMINI_API_KEY")
 
+
+
 # Set up Google Generative AI (replace with your actual API key)
 llm = langchain_google_genai.ChatGoogleGenerativeAI(
     model="gemini-pro", temperature=0.3, google_api_key=gemini_api_key
@@ -47,7 +49,7 @@ def extract_info(product_data):
         elif '**Category:**' in line:
             info['category'] = line.replace('**Category:**', '').strip()
         elif '**ASIN_Number:**' in line:
-            info['ASIN Number'] = line.replace('**ASIN Number:**', '').strip()
+            info['ASIN_Number'] = line.replace('**ASIN Number:**', '').strip()
         elif '**Description:**' in line:
             info['description'] = line.replace('**Description:**', '').strip()
         elif '**Price:**' in line:
