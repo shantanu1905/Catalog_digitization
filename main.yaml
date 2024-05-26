@@ -1,0 +1,56 @@
+version: "3.6"
+
+services:
+  postgres-pgvector:
+    image: ankane/pgvector:latest
+    container_name: postgres-pgvector
+    restart: always
+    volumes:
+      - postgres_pgvector_volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - my_network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - my_network
+
+  my_image:
+    image: myondc5:latest
+    container_name: ondc_container
+    restart: always
+    depends_on:
+      - postgres-pgvector
+      - rabbitmq
+    environment:
+      POSTGRES_HOST: postgres-pgvector
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432    
+      JWT_SECRET: e56623570e0a0152989fd38e13da9cd6eb7031e4e039e939ba845167ee59b496
+      RABBITMQ_URL: localhost
+      GEMINI_API_KEY: AIzaSyBdQyoRkPk3NqVAIN2iWMKmUB_0Ee6AWq8
+      GMAIL_ADDRESS: ghostpy001@gmail.com
+      GMAIL_PASSWORD: sreygglpufvayaie
+    networks:
+      - my_network
+
+networks:
+  my_network:
+
+volumes:
+  postgres_pgvector_volume:

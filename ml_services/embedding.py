@@ -46,7 +46,7 @@ def add_product_to_postgres(name, image_url, ean, brand, category, price ,descri
     return product_id
 
 
-df = pd.read_csv("myproducts - products.csv")
+df = pd.read_csv("latest_products.csv")
 df.head()
 
 for index, row in df.iterrows():

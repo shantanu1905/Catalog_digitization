@@ -223,7 +223,7 @@ def ocr(file: UploadFile = File(...),
 
     return response
 
-
+from app.ondc.ocr_search import search_by_embedding
 @router.post("/product_search_by_image" )
 async def upload_image(
     image: UploadFile = File(...) ,
@@ -246,35 +246,35 @@ async def upload_image(
                     'description':"snacks"
                     }
 
-        # ocr_rpc = rpc_client.OcrRpcClient()
+        ocr_rpc = rpc_client.OcrRpcClient()
 
-        # with open(image.filename, "rb") as buffer:
-        #     file_data = buffer.read()
-        #     file_base64 = base64.b64encode(file_data).decode()
+        with open(image.filename, "rb") as buffer:
+            file_data = buffer.read()
+            file_base64 = base64.b64encode(file_data).decode()
         
-        # request_json = {
-        #     'file': file_base64
-        #     }
+        request_json = {
+            'file': file_base64
+            }
 
-        # # Call the OCR microservice with the request JSON
-        # ocrresponse = ocr_rpc.call(request_json)
-        # # Delete the temporary image file
-        # os.remove(image.filename)
+        # Call the OCR microservice with the request JSON
+        ocrresponse = ocr_rpc.call(request_json)
+        # Delete the temporary image file
+        os.remove(image.filename)
 
-        # embed_rpc = rpc_client.EmbeddingRpcClient()
+        embed_rpc = rpc_client.EmbeddingRpcClient()
 
-        # request_json = {
-        #     'text': ocrresponse
-        #     }
+        request_json = {
+            'text': ocrresponse
+            }
 
-        # # Call the OCR microservice with the request JSON
-        # response = embed_rpc.call(request_json)
-
-        # print(response['embeddings'][0])
+        # Call the OCR microservice with the request JSON
+        response = embed_rpc.call(request_json)
+        result =  search_by_embedding(response['embeddings'][0] , db)
+        print(result)
 
 
         
-        return product_details
+        return result
 
     except Exception as e:
         response = {

@@ -5,8 +5,7 @@ import json
 from fastapi.responses import JSONResponse
 
 
-
-async def scrape_upc(upc_number: str ):
+async def scrape_upc(upc_number: str):
     url = f"https://go-upc.com/search?q={upc_number}"
     print(url)
 
@@ -19,25 +18,42 @@ async def scrape_upc(upc_number: str ):
 
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Extracting information
-        product_name = soup.find('h1', class_='product-name').text
-        image_source = soup.find('figure', class_='product-image').find('img')['src']
-        ean = soup.find('td', class_='metadata-label', text='EAN').find_next('td').text
-        brand = soup.find('td', class_='metadata-label', text='Brand').find_next('td').text
-        category = soup.find('td', class_='metadata-label', text='Category').find_next('td').text
+        # Extracting information with error handling
+        try:
+            product_name = soup.find('h1', class_='product-name').text
+        except AttributeError:
+            product_name = None
+
+        try:
+            image_source = soup.find('figure', class_='product-image').find('img')['src']
+        except AttributeError:
+            image_source = None
+
+        try:
+            ean = soup.find('td', class_='metadata-label', text='EAN').find_next('td').text
+        except AttributeError:
+            ean = None
+
+        try:
+            brand = soup.find('td', class_='metadata-label', text='Brand').find_next('td').text
+        except AttributeError:
+            brand = None
+
+        try:
+            category = soup.find('td', class_='metadata-label', text='Category').find_next('td').text
+        except AttributeError:
+            category = None
 
         data = {
-            'name' : product_name,
-            'image_url' : image_source,
-            'ean' : ean,
-            'brand' : brand,
-            'category' : category
+            'name': product_name,
+            'image_url': image_source,
+            'ean': ean,
+            'brand': brand,
+            'category': category
         }
-        #print(data)
-     
+        
         return data
 
     except Exception as e:
-        # Handle exceptions here
         print(f"Sorry, we were not able to find a product for EAN {upc_number}")
-        # raise HTTPException(status_code=500, detail="Internal Server Error")
+        raise HTTPException(status_code=500, detail="Internal Server Error")

@@ -13,5 +13,9 @@ uvicorn
 python-multipart
 beautifulsoup4
 langchain-google-genai
-celery
 numpy
+pika
+SQLAlchemy
+psycopg2-binary
+PyJWT
+pandas
