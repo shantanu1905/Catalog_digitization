@@ -86,3 +86,6 @@ http://127.0.0.1:8000/docs
 ### Application Demo link 
 https://youtu.be/2lB753zlCOg?si=7xN-HTd5k6588GDp
 
+### To view frontend code checkout this repo 
+https://github.com/sam-79/CatalogDigitization
+
