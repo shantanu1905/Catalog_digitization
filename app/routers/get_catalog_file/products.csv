@@ -1,10 +1,4 @@
 id,name,brand,ean,category,price,image_url,description
-3,Bikaji Bikaneri Bhujia 1 Kg,Bikaji,8906005500090,Namkeen,100,https://go-upc.s3.amazonaws.com/images/81790453.jpeg,Bikaji Bikaneri Bhujia 1 Kg unlimited sew
-5,Hershey's Kisses Almonds Milk Chocolate 100.8G,Hershey's,8901071701976,Candy & Chocolate,50,https://go-upc.s3.amazonaws.com/images/41461805.jpeg,Crunchy Almond Bits In Milk Chocolate
-7,Haldiram aloo bhujia 150 gm,Haldiram,8904063214393,Snacks,103,https://www.bigbasket.com/media/uploads/p/xxl/70000800_3-haldirams-namkeen-aloo-bhujia-del.jpg,snacks
-8,"Maggi 2-Minute Noodles, Chicken Flavor",Maggi,6001068587209,Instant Noodles,24,https://i.pinimg.com/736x/8b/6d/83/8b6d83fb56ddb329d4656168533d6816.jpg,Tasty maggi
-9,"Maggi 2 Minutes Noodles Masala, 70 Grams Pack (2.46 Oz)- 1 Pack - Made In India",Nestle,8901058000290,Instant Noodles,12,https://go-upc.s3.amazonaws.com/images/79115969.jpeg,Instant noodle 
-10,Haldiram’s Moong Dal 40gm,Haldiram's,8904004403725,Snack Foods,10,https://go-upc.s3.amazonaws.com/images/44378870.jpg,Healthy rich in protein Moong dal
-11,Cadbury Choco Creme Oreo Chocolatey Sandwich Biscuits 43.75G,Cadbury,7622201756741,Cookies,10,https://go-upc.s3.amazonaws.com/images/81415861.webp,Tasty cream biscuit 
-12,Britannia Treat Choco Cream 60 Gm,Britannia,8901063033368,Cream biscuits,10,https://go-upc.s3.amazonaws.com/images/114858558.jpeg,Choco cream biscuits 60g
-13,Haldiram’s Nagpur Aloo Bhujia 60g,Haldiram’s Nagpur,8904004400694,Chips,10,https://go-upc.s3.amazonaws.com/images/47933153.jpeg,Tasty aloo bhujia sev 42 g
+1,Cadbury Choco Creme Oreo Chocolatey Sandwich Biscuits 43.75G,Cadbury,7622201756741,Cookies,10,https://go-upc.s3.amazonaws.com/images/81415861.webp,Des
+2,"Maggi 2 Minutes Noodles Masala, 70 Grams Pack (2.46 Oz)- 1 Pack - Made In India",Nestle,8901058000290,Instant Noodles,12,https://go-upc.s3.amazonaws.com/images/79115969.jpeg,Instant noodle 
+3,Dabur Chyawanprash,Dabur,123456789,Health Supplements,12,https://cdn01.pharmeasy.in/dam/products_otc/C87812/dabur-chyawanprash-health-food-jar-of-950-gm-2-1654165471.jpg,Desc

@@ -944,3 +944,177 @@
 2024-05-26 20:19:02 India Standard Time.452 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
 2024-05-26 20:19:02 India Standard Time.452 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
 2024-05-26 20:19:54 India Standard Time.031 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-27 01:13:28 India Standard Time.394 INFO auth - generate_token: Invalid Credentials
+2024-05-27 01:13:30 India Standard Time.325 INFO auth - generate_token: Invalid Credentials
+2024-05-27 01:17:55 India Standard Time.776 INFO auth - generate_token: Invalid Credentials
+2024-05-27 01:19:19 India Standard Time.801 INFO auth - generate_token: JWT Token Generated
+2024-05-27 01:19:20 India Standard Time.402 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:19:20 India Standard Time.402 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:19:20 India Standard Time.402 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:20:51 India Standard Time.757 INFO ondc - add_product: New product added for user_id: 1
+2024-05-27 01:20:52 India Standard Time.238 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:20:52 India Standard Time.239 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:20:52 India Standard Time.239 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:20:58 India Standard Time.398 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:20:58 India Standard Time.399 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:20:58 India Standard Time.400 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:20:59 India Standard Time.760 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 01:21:04 India Standard Time.773 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:21:04 India Standard Time.774 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:21:04 India Standard Time.775 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:21:05 India Standard Time.747 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:21:05 India Standard Time.748 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:21:05 India Standard Time.749 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:22:52 India Standard Time.318 INFO ondc - add_product: New product added for user_id: 1
+2024-05-27 01:22:52 India Standard Time.680 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:22:52 India Standard Time.681 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:22:52 India Standard Time.683 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:24:10 India Standard Time.182 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-27 01:24:52 India Standard Time.705 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-27 01:27:47 India Standard Time.768 INFO ondc - bulk_add_products: New product added for user_id: 1
+2024-05-27 01:27:48 India Standard Time.064 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:27:48 India Standard Time.065 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:27:48 India Standard Time.066 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:27:50 India Standard Time.614 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:27:50 India Standard Time.615 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:27:50 India Standard Time.616 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:27:52 India Standard Time.263 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 01:27:54 India Standard Time.696 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:27:54 India Standard Time.697 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:27:54 India Standard Time.697 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:27:55 India Standard Time.892 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:27:55 India Standard Time.893 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:27:55 India Standard Time.893 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:28:45 India Standard Time.583 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:28:45 India Standard Time.584 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:28:45 India Standard Time.586 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:29:30 India Standard Time.965 INFO ondc - render_catalog: All products retrived for user_id:  1
+2024-05-27 01:30:34 India Standard Time.998 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:30:34 India Standard Time.999 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:30:35 India Standard Time.000 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 01:30:41 India Standard Time.854 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 01:30:41 India Standard Time.855 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 01:30:41 India Standard Time.856 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:50:59 India Standard Time.245 INFO auth - generate_token: JWT Token Generated
+2024-05-27 09:50:59 India Standard Time.948 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:50:59 India Standard Time.948 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:50:59 India Standard Time.948 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:51:06 India Standard Time.729 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:51:06 India Standard Time.730 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:51:06 India Standard Time.730 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:51:10 India Standard Time.396 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:51:10 India Standard Time.396 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:51:10 India Standard Time.397 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:51:32 India Standard Time.885 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-27 09:51:46 India Standard Time.675 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:51:46 India Standard Time.676 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:51:46 India Standard Time.677 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:52:01 India Standard Time.157 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:52:01 India Standard Time.158 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:52:01 India Standard Time.158 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:53:34 India Standard Time.471 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:53:34 India Standard Time.472 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:53:34 India Standard Time.473 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:53:47 India Standard Time.023 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:53:47 India Standard Time.024 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:53:47 India Standard Time.025 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:54:05 India Standard Time.420 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:54:05 India Standard Time.421 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:54:05 India Standard Time.422 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:54:55 India Standard Time.794 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:54:55 India Standard Time.795 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:54:55 India Standard Time.796 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:59:15 India Standard Time.950 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:59:15 India Standard Time.951 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:59:15 India Standard Time.952 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:59:20 India Standard Time.314 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:59:20 India Standard Time.315 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:59:20 India Standard Time.316 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:59:22 India Standard Time.454 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:59:22 India Standard Time.455 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:59:22 India Standard Time.456 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 09:59:26 India Standard Time.053 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 09:59:26 India Standard Time.054 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 09:59:26 India Standard Time.055 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:03:42 India Standard Time.452 INFO auth - generate_token: JWT Token Generated
+2024-05-27 10:03:42 India Standard Time.926 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:03:42 India Standard Time.928 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:03:42 India Standard Time.929 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:13:54 India Standard Time.145 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:13:54 India Standard Time.147 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:13:54 India Standard Time.148 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:13:56 India Standard Time.419 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:13:56 India Standard Time.420 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:13:56 India Standard Time.421 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:13:56 India Standard Time.474 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 10:14:03 India Standard Time.153 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 10:14:04 India Standard Time.348 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:14:04 India Standard Time.351 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:14:04 India Standard Time.352 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:14:06 India Standard Time.579 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:14:06 India Standard Time.581 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:14:06 India Standard Time.582 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:14:14 India Standard Time.437 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:14:14 India Standard Time.439 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:14:14 India Standard Time.441 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:17:04 India Standard Time.321 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:17:04 India Standard Time.322 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:17:04 India Standard Time.323 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:19:40 India Standard Time.876 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:19:40 India Standard Time.877 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:19:40 India Standard Time.878 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:19:45 India Standard Time.385 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:19:45 India Standard Time.386 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:19:45 India Standard Time.387 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:21:51 India Standard Time.005 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:21:51 India Standard Time.005 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:21:51 India Standard Time.006 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:22:21 India Standard Time.427 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-27 10:22:55 India Standard Time.216 INFO ondc - voice_search: voice based products search initiated for user_id:1
+2024-05-27 10:23:21 India Standard Time.153 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:23:21 India Standard Time.154 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:23:21 India Standard Time.154 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:24:01 India Standard Time.700 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:24:01 India Standard Time.701 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:24:01 India Standard Time.702 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:24:37 India Standard Time.735 INFO ondc - render_catalog: All products retrived for user_id:  1
+2024-05-27 10:24:47 India Standard Time.893 INFO ondc - render_catalog: All products retrived for user_id:  1
+2024-05-27 10:25:00 India Standard Time.284 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:25:00 India Standard Time.285 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:25:00 India Standard Time.285 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:25:05 India Standard Time.927 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:25:05 India Standard Time.928 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:25:05 India Standard Time.928 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:25:09 India Standard Time.288 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:25:09 India Standard Time.289 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:25:09 India Standard Time.290 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:25:26 India Standard Time.187 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:25:26 India Standard Time.188 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:25:26 India Standard Time.189 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:25:27 India Standard Time.267 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 10:25:31 India Standard Time.815 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 10:25:36 India Standard Time.298 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 10:25:43 India Standard Time.069 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 10:25:44 India Standard Time.191 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:25:44 India Standard Time.192 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:25:44 India Standard Time.193 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:25:44 India Standard Time.214 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:25:44 India Standard Time.215 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:25:44 India Standard Time.215 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:25:46 India Standard Time.433 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:25:46 India Standard Time.434 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:25:46 India Standard Time.435 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:25:46 India Standard Time.462 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 10:25:50 India Standard Time.930 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 10:26:07 India Standard Time.839 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 10:26:24 India Standard Time.733 INFO ondc - get_all_products: All products retrived for user_id:  1
+2024-05-27 10:26:25 India Standard Time.842 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:26:25 India Standard Time.842 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:26:25 India Standard Time.843 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:26:26 India Standard Time.990 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:26:26 India Standard Time.991 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:26:26 India Standard Time.992 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:26:28 India Standard Time.128 INFO ondc - get_products_stats: Total count of products retrieved for user_id: 1
+2024-05-27 10:26:28 India Standard Time.128 INFO ondc - get_products_stats: Unique category count retrieved for user_id: 1
+2024-05-27 10:26:28 India Standard Time.128 INFO ondc - get_products_stats: Unique brand count retrieved for user_id: 1
+2024-05-27 10:26:29 India Standard Time.261 INFO ondc - get_all_products: All products retrived for user_id:  1
